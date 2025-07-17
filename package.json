@@ -1,0 +1,40 @@
+{
+  "name": "rslib-vscode-extension-template",
+  "version": "0.0.1",
+  "repository": "https://github.com/your-repo-url",
+  "main": "./dist/extension.js",
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@rslib/core": "^0.10.5",
+    "@types/node": "^22.16.0",
+    "@types/vscode": "^1.96.0",
+    "@vscode/vsce": "^3.6.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  },
+  "activationEvents": [],
+  "categories": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.myCommand",
+        "title": "My Command"
+      }
+    ]
+  },
+  "description": "My extension description",
+  "displayName": "My unique extension display name",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "icon": "images/logo.png",
+  "publisher": "publisher-name",
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "rslib build && cp -R images dist",
+    "dev": "rslib build --watch",
+    "watch": "rslib build --watch",
+    "test": "vitest",
+    "lint": "biome check --write ."
+  }
+}
