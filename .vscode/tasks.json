@@ -1,0 +1,55 @@
+// See https://go.microsoft.com/fwlink/?LinkId=733558
+// for the documentation about the tasks.json format
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "watch",
+      "dependsOn": ["npm: watch"],
+      "presentation": {
+        "reveal": "never"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "npm",
+      "script": "watch",
+      "group": "build",
+      "isBackground": true,
+      "label": "npm: watch",
+      "presentation": {
+        "group": "watch",
+        "reveal": "never"
+      },
+      "problemMatcher": {
+        "owner": "typescript",
+        "fileLocation": "relative",
+        "pattern": [
+          {
+            "regexp": "^error\\s+\\[tsc\\]\\s+(.*):(\\d+):(\\d+)\\s+-\\s+(.*):\\s+(.*)$",
+            "severity": 1,
+            "file": 2,
+            "line": 3,
+            "column": 4,
+            "code": 5,
+            "message": 6
+          },
+          {
+            "regexp": "^(\\d+)\\s+(.*)$",
+            "line": 1,
+            "message": 2,
+            "loop": true
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^start\\s+build started...",
+          "endsPattern": "^(ready\\s+built in\\s+)|(error\\s+\\[tsc\\]\\s+Found\\s+\\d+\\s+error(s?)\\.\\s+Watching for file changes)"
+        }
+      }
+    }
+  ]
+}
