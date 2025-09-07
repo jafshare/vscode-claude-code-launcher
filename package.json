@@ -1,7 +1,7 @@
 {
-  "name": "rslib-vscode-extension-template",
-  "version": "0.0.1",
-  "repository": "https://github.com/your-repo-url",
+  "name": "vscode-claude-code-launcher",
+  "version": "0.1.0",
+  "repository": "https://github.com/jafshare/vscode-claude-code-launcher",
   "main": "./dist/extension.js",
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -10,30 +10,84 @@
     "@types/vscode": "^1.96.0",
     "@vscode/vsce": "^3.6.0",
     "typescript": "^5.8.3",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "vsce": "^2.15.0"
   },
-  "activationEvents": [],
-  "categories": [],
+  "activationEvents": ["onStartupFinished"],
+  "categories": ["AI", "Other"],
   "contributes": {
     "commands": [
       {
-        "command": "extension.myCommand",
-        "title": "My Command"
+        "command": "claudeCode.launch",
+        "title": "启动 Claude Code",
+        "category": "Claude Code"
+      },
+      {
+        "command": "claudeCode.configurePath",
+        "title": "配置 Claude Code 路径",
+        "category": "Claude Code"
+      },
+      {
+        "command": "claudeCode.configureArgs",
+        "title": "配置启动参数",
+        "category": "Claude Code"
+      },
+      {
+        "command": "claudeCode.openSettings",
+        "title": "打开设置",
+        "category": "Claude Code"
+      },
+      {
+        "command": "claudeCode.resetSettings",
+        "title": "重置所有设置",
+        "category": "Claude Code"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Claude Code",
+      "properties": {
+        "claudeCode.path": {
+          "type": "string",
+          "default": "",
+          "description": "Claude Code 可执行文件的完整路径，如果为空将自动检测"
+        },
+        "claudeCode.defaultWorkingDirectory": {
+          "type": "string",
+          "default": "${workspaceFolder}",
+          "description": "默认工作目录，支持变量：${workspaceFolder}, ${home}"
+        },
+        "claudeCode.launchArgs": {
+          "type": "string",
+          "default": "",
+          "description": "启动 Claude Code 时的命令行参数"
+        },
+        "claudeCode.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "是否显示通知消息"
+        },
+        "claudeCode.terminalType": {
+          "type": "string",
+          "enum": ["system", "vscode"],
+          "default": "system",
+          "description": "终端类型：'system' 使用系统终端，'vscode' 使用 VSCode 集成终端"
+        }
+      }
+    }
   },
-  "description": "My extension description",
-  "displayName": "My unique extension display name",
+  "description": "一个VSCode插件，能够基于当前目录快速打开Claude Code，提供便捷的命令和配置选项",
+  "displayName": "Claude Code Quick Launch",
   "engines": {
     "vscode": "^1.96.0"
   },
   "icon": "images/logo.png",
-  "publisher": "publisher-name",
+  "publisher": "jafshare",
   "scripts": {
     "vscode:prepublish": "npm run build",
     "build": "rslib build && cp -R images dist",
     "dev": "rslib build --watch",
     "watch": "rslib build --watch",
+    "package": "vsce package",
     "test": "vitest",
     "lint": "biome check --write ."
   }

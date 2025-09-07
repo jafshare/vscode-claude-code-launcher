@@ -10,3 +10,7 @@ storybook-static
 
 # IDE
 .idea
+
+.claude/*.local.*
+
+*.vsix
