@@ -29,11 +29,11 @@ cd vscode-claude-code-launcher
 # 安装依赖
 bun install
 
-# 构建扩展
-bun run build
-
 # 打包扩展
 bun run package
+
+# 安装扩展
+code --install-extension vscode-claude-code-launcher-X.X.X.vsix
 ```
 
 ## 使用方法
@@ -46,6 +46,7 @@ bun run package
 - **Claude Code: 打开设置** - 打开 VSCode 设置页面进行配置
 - **Claude Code: 配置 Claude Code 路径** - 设置 Claude Code 可执行文件路径
 - **Claude Code: 配置启动参数** - 设置启动时的命令行参数
+- **Claude Code: 配置终端类型** - 选择系统终端或 VSCode 集成终端
 - **Claude Code: 重置所有设置** - 恢复到默认配置
 
 ## 配置选项
@@ -56,6 +57,7 @@ bun run package
 
 - **Claude Code: 配置 Claude Code 路径** - 设置 Claude Code 可执行文件路径
 - **Claude Code: 配置启动参数** - 设置启动时的命令行参数
+- **Claude Code: 配置终端类型** - 选择系统终端或 VSCode 集成终端
 - **Claude Code: 重置所有设置** - 恢复到默认配置
 
 ### 配置项说明

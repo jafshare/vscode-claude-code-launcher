@@ -20,7 +20,8 @@
       {
         "command": "claudeCode.launch",
         "title": "启动 Claude Code",
-        "category": "Claude Code"
+        "category": "Claude Code",
+        "icon": "images/logo.png"
       },
       {
         "command": "claudeCode.configurePath",
@@ -41,8 +42,22 @@
         "command": "claudeCode.resetSettings",
         "title": "重置所有设置",
         "category": "Claude Code"
+      },
+      {
+        "command": "claudeCode.configureTerminal",
+        "title": "配置终端类型",
+        "category": "Claude Code"
       }
     ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "claudeCode.launch",
+          "when": "workspaceFolderCount > 0",
+          "group": "navigation"
+        }
+      ]
+    },
     "configuration": {
       "title": "Claude Code",
       "properties": {
@@ -69,7 +84,7 @@
         "claudeCode.terminalType": {
           "type": "string",
           "enum": ["system", "vscode"],
-          "default": "system",
+          "default": "vscode",
           "description": "终端类型：'system' 使用系统终端，'vscode' 使用 VSCode 集成终端"
         }
       }

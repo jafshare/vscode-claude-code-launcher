@@ -93,6 +93,14 @@ function registerCommands(
       handler: async () => {
         await configManager.openSettings();
       }
+    },
+    {
+      id: "claudeCode.configureTerminal",
+      title: "配置终端类型",
+      category: "Claude Code",
+      handler: async () => {
+        await configManager.configureTerminalType();
+      }
     }
   ];
 

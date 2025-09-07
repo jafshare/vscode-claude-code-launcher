@@ -264,6 +264,45 @@ export class ConfigManager implements IConfigManager {
   }
 
   /**
+   * 配置终端类型
+   */
+  public async configureTerminalType(): Promise<void> {
+    try {
+      const currentType = this.config.terminalType;
+
+      const options: vscode.QuickPickItem[] = [
+        {
+          label: "系统终端",
+          description: "使用系统默认终端",
+          detail: "在新窗口中打开系统终端",
+          picked: currentType === "system"
+        },
+        {
+          label: "VSCode 集成终端",
+          description: "使用 VSCode 内置终端",
+          detail: "在 VSCode 中打开集成终端",
+          picked: currentType === "vscode"
+        }
+      ];
+
+      const selected = await vscode.window.showQuickPick(options, {
+        title: "选择终端类型",
+        placeHolder: "请选择启动 Claude Code 时使用的终端类型",
+        canPickMany: false
+      });
+
+      if (selected) {
+        const terminalType =
+          selected.label === "系统终端" ? "system" : "vscode";
+        await this.set("terminalType", terminalType);
+        this.showNotification(`终端类型已设置为: ${selected.label}`, "info");
+      }
+    } catch (error) {
+      this.showNotification("配置终端类型失败", "error");
+    }
+  }
+
+  /**
    * 打开设置
    */
   public async openSettings(): Promise<void> {
