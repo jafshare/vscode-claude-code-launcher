@@ -2,6 +2,8 @@
 
 一个 VSCode 扩展，能够基于当前目录快速打开 Claude Code，提供便捷的命令和配置选项
 
+[🇨🇳 中文](README.md) | [🇺🇸 English](README.en.md)
+
 ## 功能特性
 
 - 🚀 **快速启动** - 使用 `Ctrl + Shift + P` 面板快速启动 Claude Code

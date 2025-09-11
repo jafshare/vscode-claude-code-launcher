@@ -103,6 +103,7 @@
     "dev": "rslib build --watch",
     "watch": "rslib build --watch",
     "package": "vsce package",
+    "publish": "vsce publish",
     "test": "vitest",
     "lint": "biome check --write ."
   }

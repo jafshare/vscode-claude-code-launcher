@@ -1,0 +1,65 @@
+name: Publish VSCode Extension
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Bun
+      uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+    
+    - name: Get bun cache directory path
+      id: bun-cache-dir-path
+      run: echo "dir=$(bun pm cache)" >> $GITHUB_OUTPUT
+    
+    - name: Cache bun dependencies
+      uses: actions/cache@v4
+      with:
+        path: |
+          ${{ steps.bun-cache-dir-path.outputs.dir }}
+          node_modules
+        key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-bun-
+        
+    - name: Install dependencies
+      run: bun install
+      
+    - name: Package extension
+      run: bun run package
+      
+    - name: Publish to VSCode Marketplace
+      uses: HaaLeo/publish-vscode-extension@v1
+      with:
+        pat: ${{ secrets.VSCE_TOKEN }}
+        registryUrl: https://marketplace.visualstudio.com
+        packagePath: '*.vsix'
+        
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: '*.vsix'
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+        name: Release ${{ github.ref_name }}
+        body: |
+            ## VSCode Claude Code Launcher ${{ github.ref_name }}
+
+            ### 🚀 新版本发布
+
+            ---
+
+            **感谢使用 VSCode Claude Code Launcher！**
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
