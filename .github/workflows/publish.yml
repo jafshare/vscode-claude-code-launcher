@@ -38,17 +38,21 @@ jobs:
     - name: Package extension
       run: bun run package
       
+    - name: Find VSIX file
+      id: find-vsix
+      run: echo "vsix_path=$(ls *.vsix)" >> $GITHUB_OUTPUT
+      
     - name: Publish to VSCode Marketplace
       uses: HaaLeo/publish-vscode-extension@v1
       with:
         pat: ${{ secrets.VSCE_TOKEN }}
+        extensionFile: ${{ steps.find-vsix.outputs.vsix_path }}
         registryUrl: https://marketplace.visualstudio.com
-        packagePath: '*.vsix'
         
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
-        files: '*.vsix'
+        files: ${{ steps.find-vsix.outputs.vsix_path }}
         draft: false
         prerelease: false
         generate_release_notes: true

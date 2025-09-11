@@ -1,6 +1,6 @@
 {
   "name": "vscode-claude-code-launcher",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": "https://github.com/jafshare/vscode-claude-code-launcher",
   "main": "./dist/extension.js",
   "devDependencies": {
